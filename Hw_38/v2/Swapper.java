@@ -1,7 +1,7 @@
 // Johnny Wong
 // APCS1 pd 8
-// HW 38 -- Put It Together
-// 2017-11-21
+// HW 40 -- Make It Better
+// 2017-11-27
 
 /* SUMMARY OF PROGRAM:
    ========================================================================
@@ -41,6 +41,15 @@
    ========================================================================
  */
 
+/* v2 Improvements:
+   ========================================================================
+
+   *Added grid labeling system, incorporated into methods print and uniqueStrings.
+   *Added report about the Strings being swapped via the swapChoice method.
+   *Added report about invalid inputs via the userInt method.
+
+   ========================================================================
+ */
 import cs1.Keyboard;
 
 public class Swapper{
@@ -57,13 +66,27 @@ public class Swapper{
     //          uses a FOREACH loop
     public static void print( String[][] a )
     {
+	String cellNum = "";
+	int count = -1;
+	for (String str: a[0]){
+	    count++;
+	    if (count == 0){
+		cellNum += "    ";
+	    }
+	    cellNum += count;
+	    cellNum += "     ";
+	}
+	System.out.println(cellNum);
+	count = 0;
 	for (String [] row: a){
-	    String strRow = "[";
+	    String strRow = "";
+	    strRow += count + "   ";
 	    for (String cell: row){
 		strRow += cell + ", ";
 	    }
-	    System.out.println(strRow.substring(0,strRow.length()-2) + "]");
+	    System.out.println(strRow.substring(0,strRow.length()-2));
 	    System.out.println();
+	    count++;
 	}
     }
 
@@ -98,6 +121,27 @@ public class Swapper{
 	    }
 	}
     }
+    // postcond: returns an int that the user inputs - if the input is invalid print error message until user inputs a valid int
+    public static int userInt(int length, String position){
+	Keyboard keyboard = new Keyboard();
+	int input = -1;
+	while (input < 0 || input > length){
+	    input = keyboard.readInt();
+	    if (input > length || input < 0){
+		System.out.println("That is not a valid " + position + ". Please try again...");
+	    }
+	}
+	return input;
+    }
+
+    // postcond: prints the Strings that are to be swapped
+    public static void swapChoices(String first, String second){
+	System.out.println("These are the Strings you want to swap...\n");
+	System.out.println(first + " and " + second);
+    }
+
+    
+    
     // postcond: The method swap is performed on inputted 2 dimensional String array a
     //           The user inputs the row number and cell number of the first String desired
     //           to be swapped. Then, the user inputs the row number and cell number of the
@@ -113,19 +157,19 @@ public class Swapper{
 	s += "Possible cell values are: 0 to " + (a[0].length - 1) + "\n";
 	s += "Index: ";
 	System.out.println(s);
-	Keyboard keyboard = new Keyboard();
-	int selectedRow = keyboard.readInt();
-	int selectedCell = keyboard.readInt();
+	int selectedRow = userInt(a.length - 1, "row");
+	int selectedCell = userInt(a[0].length - 1, "cell");
 	s = "\nPlease input the index of the String you would like to swap with now...\n";
 	s += "in the following format: \nrow\ncell\n";
         s += "Possible row values are: 0 to " + (a.length - 1) + "\n";
 	s += "Possible cell values are: 0 to " + (a[0].length - 1) + "\n";
 	s += "Index: ";
 	System.out.println(s);
-	int newRow = keyboard.readInt();
-	int newCell = keyboard.readInt();
+	int newRow = userInt(a.length - 1, "row");
+	int newCell = userInt(a[0].length - 1, "cell");
 	String first = a[selectedRow][selectedCell];
 	String second = a[newRow][newCell];
+	swapChoices(first, second);
 	a[selectedRow][selectedCell] = second;
 	a[newRow][newCell] = first;
 	System.out.println("\nNow presenting your new array...\n");
