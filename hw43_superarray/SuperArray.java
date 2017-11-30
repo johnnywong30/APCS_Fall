@@ -1,7 +1,7 @@
-// Clyde "Thluffy" Sinclair
-// APCS1 pd0
-// HW43 -- adhering to a published standard (implementing an interface)
-// 2017-11-30r
+// Johnny Wong
+// APCS1 pd 8
+// HW43 -- Array of Titanium
+// 2017-11-30
 
 /***************************
  * class SuperArray version 3.0
@@ -18,7 +18,7 @@
  * ListInt interface. (ListInt.java must be in same dir as this file)
  ***************************/
 
-public class SuperArray
+public class SuperArray implements ListInt
 {
 
   private int[] _data;  //underlying container
@@ -76,9 +76,10 @@ public class SuperArray
 
 
   //adds an item after the last item
-  public void add( int newVal )
+  public boolean add( int newVal )
   {
     add( _size, newVal );
+    return true;
   }
 
 
@@ -98,12 +99,14 @@ public class SuperArray
 
   //removes the item at index
   //shifts elements left to fill in newly-empted slot
-  public void remove( int index )
+  public int remove( int index )
   {
+      int removed = _data[index];
     for( int i = index; i < _size - 1; i++ ) {
       _data[i] = _data[i+1];
     }
     _size--;
+    return removed;
   }
 
 
@@ -118,27 +121,34 @@ public class SuperArray
   //main method for testing
   public static void main( String[] args )
   {
-    /*~~~~~~~~move~me~down~~~~~~~~~~~~~~V~~~~~~~~
+    
     ListInt mayfield = new SuperArray();
-    System.out.println("Printing empty SuperArray mayfield...");
+    System.out.println("Testing add method with signature 'boolean add(int newVal)'...");
+    //System.out.println(mayfield);
+
+    System.out.println("Five 'true' statements should follow now...");
+    System.out.println(mayfield.add(5)); 
+    System.out.println(mayfield.add(4));
+    System.out.println(mayfield.add(3));
+    System.out.println(mayfield.add(2));
+    System.out.println(mayfield.add(1));
+
+    System.out.println("======================================================================");
+    System.out.println("To prove that 5, 4, 3, 2, and 1 were added to SuperArray mayfield...");
     System.out.println(mayfield);
 
-    mayfield.add(5);
-    mayfield.add(4);
-    mayfield.add(3);
-    mayfield.add(2);
-    mayfield.add(1);
-
-    System.out.println("Printing populated SuperArray mayfield...");
-    System.out.println(mayfield);
-
-    mayfield.remove(3);
+    System.out.println("======================================================================");
+    System.out.println("Now testing remove method with signature 'int remove(int index)'...");
+    System.out.println("Removing element at index 3: "); 
+    System.out.println(mayfield.remove(3));
     System.out.println("Printing SuperArray mayfield post-remove...");
     System.out.println(mayfield);
-    mayfield.remove(3);
+    System.out.println("Removing element at index 3: ");
+    System.out.println(mayfield.remove(3));
     System.out.println("Printing SuperArray mayfield post-remove...");
     System.out.println(mayfield);
 
+    /*
     mayfield.add(3,99);
     System.out.println("Printing SuperArray mayfield post-insert...");
     System.out.println(mayfield);
@@ -148,7 +158,8 @@ public class SuperArray
     mayfield.add(1,77);
     System.out.println("Printing SuperArray mayfield post-insert...");
     System.out.println(mayfield);
-      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|~~~~~~~~*/
+    */
+    
   }//end main()
 
 
