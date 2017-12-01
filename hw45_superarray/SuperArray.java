@@ -121,20 +121,26 @@ public class SuperArray implements List
   //main method for testing
   public static void main( String[] args )
   {
-    
+      Rational v = new Rational(3,7);
+      Rational w = new Rational(4,9);
+      Rational x = new Rational(8,18);
+      Rational y = new Rational(6,14);
+      Rational z = new Rational();
+
+      
     List mayfield = new SuperArray();
-    System.out.println("Testing add method with signature 'boolean add(int newVal)'...");
+    //System.out.println("Testing add method with signature 'boolean add(int newVal)'...");
     System.out.println(mayfield);
 
     System.out.println("Five 'true' statements should follow now...");
-    System.out.println(mayfield.add(5)); 
-    System.out.println(mayfield.add(4));
-    System.out.println(mayfield.add(3));
-    System.out.println(mayfield.add(2));
-    System.out.println(mayfield.add(1));
+    System.out.println(mayfield.add(v)); 
+    System.out.println(mayfield.add(w));
+    System.out.println(mayfield.add(x));
+    System.out.println(mayfield.add(y));
+    System.out.println(mayfield.add(z));
 
     System.out.println("======================================================================");
-    System.out.println("To prove that 5, 4, 3, 2, and 1 were added to SuperArray mayfield...");
+    // System.out.println("To prove that 5, v, 3, 2, and 1 were added to SuperArray mayfield...");
     System.out.println(mayfield);
 
     System.out.println("======================================================================");
@@ -148,16 +154,20 @@ public class SuperArray implements List
     System.out.println("Printing SuperArray mayfield post-remove...");
     System.out.println(mayfield);
 
+    Rational a = new Rational(1,2);
+
     
-    mayfield.add(3,99);
+    mayfield.add(3,a);
     System.out.println("Printing SuperArray mayfield post-insert...");
     System.out.println(mayfield);
+    /*
     mayfield.add(2,88);
     System.out.println("Printing SuperArray mayfield post-insert...");
     System.out.println(mayfield);
     mayfield.add(1,77);
     System.out.println("Printing SuperArray mayfield post-insert...");
     System.out.println(mayfield);
+    */
     
     
   }//end main()
