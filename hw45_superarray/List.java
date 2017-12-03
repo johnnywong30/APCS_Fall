@@ -8,16 +8,16 @@
 public interface List
 {
   // Return number of elements in the list
-  Object size();
+  int size();
 
   // Append an Object to the end. Return true.
   boolean add( Object num );
 
   // Insert an Object at index
-  void add( Object index, int num ); 
+  void add( int index, Object num ); 
 
   // Retrieve the Object at index
-  Object get( Object index );
+  Object get( int index );
 
   // Overwrite the Object at index
   Object set( int index, Object num );

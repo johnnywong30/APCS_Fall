@@ -38,11 +38,11 @@ public class SuperArray implements List
   {
     String foo = "[";
     for( int i = 0; i < _size; i++ ) {
-      foo += _data[i] + ",";
+      foo += _data[i] + ", ";
     }
     if ( foo.length() > 1 )
       //shave off trailing comma
-      foo = foo.substring( 0, foo.length()-1 );
+      foo = foo.substring( 0, foo.length()-2 );
     foo += "]";
     return foo;
   }
@@ -121,6 +121,7 @@ public class SuperArray implements List
   //main method for testing
   public static void main( String[] args )
   {
+      // create instances of Rational to test new Object SuperArray
       Rational v = new Rational(3,7);
       Rational w = new Rational(4,9);
       Rational x = new Rational(8,18);
@@ -129,22 +130,17 @@ public class SuperArray implements List
 
       
     List mayfield = new SuperArray();
-    //System.out.println("Testing add method with signature 'boolean add(int newVal)'...");
     System.out.println(mayfield);
+    mayfield.add(v); 
+    mayfield.add(w);
+    mayfield.add(x);
+    mayfield.add(y);
+    mayfield.add(z);
 
-    System.out.println("Five 'true' statements should follow now...");
-    System.out.println(mayfield.add(v)); 
-    System.out.println(mayfield.add(w));
-    System.out.println(mayfield.add(x));
-    System.out.println(mayfield.add(y));
-    System.out.println(mayfield.add(z));
-
-    System.out.println("======================================================================");
-    // System.out.println("To prove that 5, v, 3, 2, and 1 were added to SuperArray mayfield...");
     System.out.println(mayfield);
 
     System.out.println("======================================================================");
-    System.out.println("Now testing remove method with signature 'int remove(int index)'...");
+    System.out.println("Now testing remove method with signature 'Object remove(int index)'...");
     System.out.println("Removing element at index 3: "); 
     System.out.println(mayfield.remove(3));
     System.out.println("Printing SuperArray mayfield post-remove...");
@@ -160,14 +156,16 @@ public class SuperArray implements List
     mayfield.add(3,a);
     System.out.println("Printing SuperArray mayfield post-insert...");
     System.out.println(mayfield);
-    /*
-    mayfield.add(2,88);
+
+    // test on String
+    mayfield.add(2,"This works!");
     System.out.println("Printing SuperArray mayfield post-insert...");
     System.out.println(mayfield);
+    // test if SuperArray still works with ints... and it does
     mayfield.add(1,77);
     System.out.println("Printing SuperArray mayfield post-insert...");
     System.out.println(mayfield);
-    */
+    
     
     
   }//end main()
