@@ -21,47 +21,51 @@
 public class SuperArray implements List
 {
 
-  private Object[] _data;  //underlying container
-  private int _size;    //number of elements in this SuperArray
+    private Object[] _data;  //underlying container
+    private int _size;    //number of elements in this SuperArray
 
 
   //default constructor – initializes 10-item array
   public SuperArray()
   {
-    _data = new Object[10];
-    _size = 0;
+      _data = new Object[10];
+      _size = 0;
   }
 
 
   //output SuperArray in [a,b,c] format
   public String toString()
   {
-    String foo = "[";
-    for( int i = 0; i < _size; i++ ) {
-      foo += _data[i] + ", ";
-    }
-    if ( foo.length() > 1 )
-      //shave off trailing comma
-      foo = foo.substring( 0, foo.length()-2 );
-    foo += "]";
-    return foo;
+      String foo = "[";
+      for( int i = 0; i < _size; i++ ) {
+	  foo += _data[i] + ", ";
+      }
+      if ( foo.length() > 1 )
+	  //shave off trailing comma
+	  foo = foo.substring( 0, foo.length()-2 );
+      foo += "]";
+      return foo;
   }
 
 
   //double capacity of SuperArray
   private void expand()
   {
-    Object[] temp = new Object[ _data.length * 2 ];
-    for( int i = 0; i < _data.length; i++ )
-      temp[i] = _data[i];
-    _data = temp;
+      Object[] temp = new Object[ _data.length * 2 ];
+      for( int i = 0; i < _data.length; i++ )
+	  temp[i] = _data[i];
+      _data = temp;
   }
 
 
   //accessor -- return value at specified index
   public Object get( int index )
   {
-    return _data[index];
+      // check for invalid index
+      if (index < 0 || index >= _size){
+	  throw new java.lang.IndexOutOfBoundsException("Inputted index is invalid.");
+      }
+      return _data[index];
   }
 
 
@@ -69,31 +73,39 @@ public class SuperArray implements List
   //           return old value at index
   public Object set( int index, Object newVal )
   {
-    Object temp = _data[index];
-    _data[index] = newVal;
-    return temp;
+      // check for invalid index
+      if (index < 0 || index >= _size){
+	  throw new java.lang.IndexOutOfBoundsException("Inputted index is invalid.");
+      }
+      Object temp = _data[index];
+      _data[index] = newVal;
+      return temp;
   }
 
 
   //adds an item after the last item
   public boolean add( Object newVal )
   {
-    add( _size, newVal );
-    return true;
+      add( _size, newVal );
+      return true;
   }
 
 
   //inserts an item at index
   public void add( int index, Object newVal )
   {
-    //first expand if necessary
-    if ( _size >= _data.length )
-      expand();
-    for( int i = _size; i > index; i-- ) {
-      _data[i] = _data[i-1]; //each slot gets value of left neighbor
-    }
-    _data[index] = newVal;
-    _size++;
+      // check for invalid index
+      if (index < 0 || index > _size){
+	  throw new java.lang.IndexOutOfBoundsException("Inputted index is invalid.");
+      }
+      //next expand if necessary
+      if ( _size >= _data.length )
+	  expand();
+      for( int i = _size; i > index; i-- ) {
+	  _data[i] = _data[i-1]; //each slot gets value of left neighbor
+      }
+      _data[index] = newVal;
+      _size++;
   }
 
 
@@ -101,19 +113,23 @@ public class SuperArray implements List
   //shifts elements left to fill in newly-empted slot
   public Object remove( int index )
   {
+      // check for invalid index
+      if (index < 0 || index >= _size){
+	  throw new java.lang.IndexOutOfBoundsException("Inputted index is invalid.");
+      }
       Object removed = _data[index];
-    for( int i = index; i < _size - 1; i++ ) {
-      _data[i] = _data[i+1];
-    }
-    _size--;
-    return removed;
+      for( int i = index; i < _size - 1; i++ ) {
+	  _data[i] = _data[i+1];
+      }
+      _size--;
+      return removed;
   }
 
 
   //return number of meaningful items in _data
   public int size()
   {
-    return _size;
+      return _size;
   }
 
 
@@ -129,42 +145,50 @@ public class SuperArray implements List
       Rational z = new Rational();
 
       
-    List mayfield = new SuperArray();
-    System.out.println(mayfield);
-    mayfield.add(v); 
-    mayfield.add(w);
-    mayfield.add(x);
-    mayfield.add(y);
-    mayfield.add(z);
+      List mayfield = new SuperArray();
+      System.out.println(mayfield);
+      mayfield.add(v); 
+      mayfield.add(w);
+      mayfield.add(x);
+      mayfield.add(y);
+      mayfield.add(z);
 
-    System.out.println(mayfield);
+      System.out.println(mayfield);
 
-    System.out.println("======================================================================");
-    System.out.println("Now testing remove method with signature 'Object remove(int index)'...");
-    System.out.println("Removing element at index 3: "); 
-    System.out.println(mayfield.remove(3));
-    System.out.println("Printing SuperArray mayfield post-remove...");
-    System.out.println(mayfield);
-    System.out.println("Removing element at index 3: ");
-    System.out.println(mayfield.remove(3));
-    System.out.println("Printing SuperArray mayfield post-remove...");
-    System.out.println(mayfield);
+      System.out.println("======================================================================");
+      System.out.println("Now testing remove method with signature 'Object remove(int index)'...");
+      System.out.println("Removing element at index 3: "); 
+      System.out.println(mayfield.remove(3));
+      System.out.println("Printing SuperArray mayfield post-remove...");
+      System.out.println(mayfield);
+      System.out.println("Removing element at index 3: ");
+      System.out.println(mayfield.remove(3));
+      System.out.println("Printing SuperArray mayfield post-remove...");
+      System.out.println(mayfield);
+      // exception error on this line when uncommented...
+      // System.out.println(mayfield.remove(420));
+      // System.out.println("Printing SuperArray mayfield post-remove...");
+      // System.out.println(mayfield);
 
-    Rational a = new Rational(1,2);
+      Rational a = new Rational(1,2);
 
     
-    mayfield.add(3,a);
-    System.out.println("Printing SuperArray mayfield post-insert...");
-    System.out.println(mayfield);
+      mayfield.add(3,a);
+      System.out.println("Printing SuperArray mayfield post-insert...");
+      System.out.println(mayfield);
 
-    // test on String
-    mayfield.add(2,"This works!");
-    System.out.println("Printing SuperArray mayfield post-insert...");
-    System.out.println(mayfield);
-    // test if SuperArray still works with ints... and it does
-    mayfield.add(1,77);
-    System.out.println("Printing SuperArray mayfield post-insert...");
-    System.out.println(mayfield);
+      // test on String
+      mayfield.add(2,"This works!");
+      System.out.println("Printing SuperArray mayfield post-insert...");
+      System.out.println(mayfield);
+      // test if SuperArray still works with ints... and it does
+      mayfield.add(1,77);
+      System.out.println("Printing SuperArray mayfield post-insert...");
+      System.out.println(mayfield);
+      // exception error on this line when uncommented...
+      // mayfield.add(666,77);
+      // System.out.println("Printing SuperArray mayfield post-insert...");
+      // System.out.println(mayfield);
     
     
     
