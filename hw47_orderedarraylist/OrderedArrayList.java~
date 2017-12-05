@@ -1,0 +1,23 @@
+// Johnny Wong
+// APCS1 pd8
+// HW47 - ascending
+// 2017-12-05
+
+/*=====================
+  Implement class OrderedArrayList, a wrapper class for ArrayList 
+  maintaining the invariant that its elements are sorted.
+  ====================*/
+
+import java.util.ArrayList;
+
+public class OrderedArrayList{
+
+    // inst vars
+    private ArrayList<Comparable> _data;
+
+    // default constructor
+    public OrderedArrayList(){
+	_data = new ArrayList<Comparable>();
+    }
+    
+}
