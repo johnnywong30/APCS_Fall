@@ -26,13 +26,17 @@ public class GuessNumber
 
     /*==================================================
       constructor -- initializes a guess-a-number game
-      pre:  
+      pre: instance vars are not initialized   
       post: _lo is lower bound, _hi is upper bound,
       _guessCtr is 1, _target is random int on range [_lo,_hi]
       ==================================================*/
     public GuessNumber( int a, int b ) 
     {
-	/* YOUR IMPLEMENTATION HERE */
+	int a = 1;
+	int b = 100;
+	int _guessCtr = 1;
+	int _target = (int) (100 * Math.random() + 1);
+	
     }
 
 
