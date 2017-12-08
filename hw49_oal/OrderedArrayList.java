@@ -73,24 +73,41 @@ public class OrderedArrayList
     }
 
     // addBin
-    // employs a binary search to locate the point of insertion for a new element.
+    // employs a binary search to locate the point of insertion for a new Comparable Object
     // inserts newVal at this appropriate point of insertion
+    // maintains ascending order of elements
     public void addBin(Comparable newVal){
 	int _lo = 0; // lower bound starts at 0
+	int _mid = 0; // midpoint and appropriate point of insertion
 	int _hi = size() - 1; // upper bound starts at last index of _data
+	if (size() == 0){ // if _data is empty, just append as normal
+	    _data.add(newVal);
+	    return;
+	}
+	boolean _found = false;
+	while (! _found){
+	    _mid = (_hi + _lo) / 2;
+	    //System.out.println("Current range is [" + _lo + "," + _hi + "] with midpoint of " + _mid); // tests the current working range
+	    if (newVal.compareTo(get(_mid)) > 0) { // newVal greater than item at midpoint so increase lower bound
+		_lo = _mid + 1;
+		if (_lo > _hi){ // check if index is found
+		    _mid++;
+		    _found = true; // breaks loop
+		}
+	    }
+	    else if (newVal.compareTo(get(_mid)) < 0) { // newVal less than item at midpoint so decrease upper bound
+		_hi = _mid - 1;
+		if (_lo > _hi){ // check if index is found
+		    _found = true; // breaks loop
+		}
+	    }
+	    else { // newVal is equal to item at midpoint
+		_found = true; // breaks loop
+	    }
+	} // end of binary search
 
-	while (_lo != _hi){
-	    System.out.println("This is _lo: " + _lo);
-	    System.out.println("This is _hi: ") + _hi);
-	if (newVal.compareTo(
-			     
-			      }
+	_data.add(_mid, newVal); // add newVal to appropriate point of insertion
 
-	
-	
-        
-	_data.add(_hi + 1, newVal); // add to the right of the element that is <= newVal
-	
     }
 
     
@@ -98,17 +115,41 @@ public class OrderedArrayList
     public static void main( String[] args )
     {
 	OrderedArrayList Franz = new OrderedArrayList();
+	OrderedArrayList Branz = new OrderedArrayList();
 
+	System.out.println("Testing linear search: ");
+	
 	// testing linear search
 	for( int i = 0; i < 15; i++ )
-	    Franz.addBin( (int)( 50 * Math.random() ) );
+	    Franz.add( (int)( 50 * Math.random() ) );
 	System.out.println( Franz );
+
+	
 
 	//check for sorted-ness
 	//if msg does not appear, list was sorted
 	for( int i=0; i<Franz.size()-1; i++ ) {
 	    System.out.println("at i: " + Franz.get(i) );
 	    if ( Franz.get(i).compareTo(Franz.get(i+1)) > 0 ) {
+		System.out.println( " *** NOT sorted *** " );
+		break;
+	    }
+	}
+
+	System.out.println("=============================================================");
+
+	System.out.println("Testing binary search: ");
+	
+	// testing binary search
+	for( int i = 0; i < 15; i++ )
+	    Branz.addBin( (int)( 50 * Math.random() ) );
+	System.out.println( Branz );
+	
+	//check for sorted-ness
+	//if msg does not appear, list was sorted
+	for( int i=0; i<Branz.size()-1; i++ ) {
+	    System.out.println("at i: " + Branz.get(i) );
+	    if ( Branz.get(i).compareTo(Branz.get(i+1)) > 0 ) {
 		System.out.println( " *** NOT sorted *** " );
 		break;
 	    }
