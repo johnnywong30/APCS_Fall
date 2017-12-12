@@ -43,7 +43,10 @@ public class InsertionSort
   // postcondition: data's elements sorted in ascending order
   public static void insertionSortV( ArrayList<Comparable> data )
   {
-    /* YOUR IMPLEMENTATION HERE */
+      int passes = data.size() - 1;
+      while (passes > 0){
+	  
+      }
   }//end insertionSortV
 
 
