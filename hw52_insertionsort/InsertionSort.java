@@ -1,3 +1,8 @@
+// Johnny Wong
+// APCS1 pd8
+// HW52 --
+// 2017-12-13
+
 /***************************************
  *  class InsertionSort -- implements InsertionSort algorithm
  ***************************************/
