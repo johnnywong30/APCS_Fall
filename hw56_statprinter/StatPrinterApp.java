@@ -33,11 +33,11 @@ public class StatPrinterApp
 	
 	StatPrinter sp1 = new StatPrinter( al1 );
 
-	/*
+	
 	  System.out.println( "sp1 testing... " );
 	  sp1.max( al1 );
 	  sp1.printHistogram( 50 );
-	*/
+	  
 
 
 	//construct data [2,3,2,5,2,3]
@@ -52,7 +52,7 @@ public class StatPrinterApp
 		
 	StatPrinter sp2 = new StatPrinter( al2 );
 
-	System.out.println( "sp2 testing: " );
+	System.out.println( "sp2 testing: ");
 	System.out.println( "al2 max: " + sp1.max(al2) );
 	System.out.println( "local modes: " );
 	for( Integer i : al2 ) {

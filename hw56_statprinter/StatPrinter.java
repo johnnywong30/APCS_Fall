@@ -54,8 +54,18 @@ public class StatPrinter {
     //eg, for data [2,3,2,5,2,3]
     //  _frequency would be [0,0,3,2,0,1]
     public StatPrinter( ArrayList <Integer> data ) 
-    { 
-	/* YOUR IMPLEMENTATION HERE */
+    {
+	int count; // determine frequency at each i
+	_frequency = new ArrayList<Integer>(); // init as empty ArrayList<Integer>
+	for (int i = 0; i < this.max(data) + 1; i++){ // last index is maximum of data + 1
+	    count = 0; 
+	    for (int index = 0; index < data.size(); index++){
+		if (i == data.get(index)){
+		    count++; // if i corresponds to Integer found in data frequency of i increases
+		}
+	    }
+	    _frequency.add(count); // add frequency num
+	}
     }
 
 
@@ -64,7 +74,13 @@ public class StatPrinter {
     //postcond: returns largest integer in data
     public Integer max( ArrayList <Integer> data ) 
     { 
-	/* YOUR IMPLEMENTATION HERE */
+	Integer max = 0;
+	for (Integer i : data){
+	    if (i > max){
+		max = i;
+	    }
+	}
+	return max;
     }
 
 
@@ -79,8 +95,14 @@ public class StatPrinter {
     //    isLocalMode(1) -> true
     //    isLocalMode(5) -> true
     public boolean isLocalMode( int i ) 
-    { 
-	/* YOUR IMPLEMENTATION HERE */
+    {
+	if (i > 0 && i < _frequency.size() - 1){
+	    Integer previous = _frequency.get(i - 1);
+	    Integer next = _frequency.get(i + 1);
+	    Integer current = _frequency.get(i);
+	    return ( previous < current ) && ( next < current);
+	}
+	return false;
     }
 
 
@@ -88,8 +110,13 @@ public class StatPrinter {
     //postcond: returns list of modes in _frequency
     public ArrayList<Integer> getLocalModes() 
     {
-	/* YOUR IMPLEMENTATION HERE */
-
+	ArrayList<Integer> localModes = new ArrayList<Integer>();
+	for (Integer i : _frequency){
+	    if (isLocalMode(i)){
+		localModes.add(i);
+	    }
+	}
+	return localModes;
     }
 
 
@@ -97,7 +124,19 @@ public class StatPrinter {
     //precond:  longestBar > 0
     public void printHistogram( int longestBar ) 
     {
-	/* YOUR IMPLEMENTATION HERE */ 
+	int proportion = longestBar / (_frequency.size() - 1); // proportion is ratio of longestBar to largest
+	                                                       // value in data set that corresponds to _frequency
+	String bar = "";
+	for (int i = 0; i < _frequency.size(); i++){
+	    bar = "\n" + i + " : ";
+	    // int barCount = 0; // was used to test how long each bar of astericks was
+	    for (int j = 0; j < ( _frequency.get(i) * proportion); j++){ // process of adding astericks
+		bar += "*";
+		//barCount++;
+	    }
+	    // bar += "    bar length is: " + barCount; // length of each bar was shown
+	    System.out.println(bar);
+	}
     }
  
 }//end class StatPrinter
