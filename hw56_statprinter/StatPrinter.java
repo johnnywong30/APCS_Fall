@@ -1,3 +1,9 @@
+// Johnny Wong
+// APCS1 pd8
+// HW56 -- His Toe Grammar
+// 2017-12-19
+
+
 /*====================================================================
   An AP-style question, for practice:
   Write the StatPrinter class below. The StatPrinter Object receives an
