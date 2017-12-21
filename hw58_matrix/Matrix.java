@@ -1,3 +1,10 @@
+// Johnny Wong
+// APCS1 pd8
+// HW59 -- Make the Matrix Work For You
+// 2017-12-21
+
+
+
 /***
  * class Matrix -- models a square matrix
  *
@@ -157,22 +164,47 @@ public class Matrix
     //returns copy of row r
     public Object[] getRow( int r )
     {
-    }//O(?)
+	return _matrix[r - 1];
+    }//O(1)
 
     //replaces row r with 1D array newRow
     //returns old row
     public Object [] setRow( int r, Object[] newRow )
     {
-    }//O(?)
+	if (newRow.length != this.size()){ // check if newRow has same length
+	    return null;
+	}
+	Object [] old = getRow(r); // store previous row
+	_matrix[r - 1] = newRow;
+	return old;
+    }//O(1)
 
+    // replaces column c with each c in newCol
+    // returns old c
     public Object [] setCol( int c, Object[] newCol )
     {
-    }//O(?)
+	if (newCol.length != this.size()){ // check if newCol has same length
+	    return null;
+	}
+	Object [] old = new Object[this.size()]; // store previous col
+	for (int r = 0; r < this.size(); r++){ // linearly proceed through each c in each r
+	    old[r] = _matrix[r][c - 1];
+	    this.set(r + 1, c - 1, newCol[r]); 
+	}
+	return old;
+    }//O(n)
 
     //M[i,j] -> M[j,i] for all i,j
     public void transpose()
     {
-    }//O(?)
+	for (int r = 0; r < this.size(); r++){ // linear search per r
+	    for (int c = r + 1; c < this.size(); c++){ // linear search per c
+		Object temp = this._matrix[r][c]; // store prev _matrix[r][c]
+		_matrix[r][c] = _matrix[c][r]; // swap positions 
+		_matrix[c][r] = temp; // 
+	    }
+	}
+    }//O(n^2)
     
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
    
@@ -180,6 +212,7 @@ public class Matrix
     //main method for testing
     public static void main( String[] args ) 
     {
+	System.out.println("Matrix m1 and m2: ");
 	Matrix m1 = new Matrix(); // 2 x 2
 	Matrix m2 = new Matrix(10); // 10 x 10
 	System.out.println("m1 size: " + m1.size());
@@ -187,16 +220,43 @@ public class Matrix
 	System.out.println("m1 get(1,1) : " + m1.get(1,1));
 	System.out.println("m1 isEmpty(1,1) : " + m1.isEmpty(1,1));	
 
+	System.out.println("\nMatrix x: ");
 	Matrix x = new Matrix(2); // 2x2
 	System.out.println(x);
 	x.set(1,1,"how"); 
 	x.set(1,2,"now"); 
 	x.set(2,1,"bro"); 
-	x.set(2,2,"cow"); 
+	x.set(2,2,"cow");
+	System.out.println("Matrix x post sets...");
 	System.out.println(x);
-
+	System.out.println("Matrix x post setRow...");
+	Object [] legDay = {"leg", "bad"};
+	x.setRow(1, legDay);
+	System.out.println(x);
+	System.out.println("Matrix x post setCol...");
+	Object [] benchPress = {"arm", "ded"};
+	x.setCol(2, benchPress);
+	System.out.println(x);
+	System.out.println("Matrix x post transpose...");
+	x.transpose();
+	System.out.println(x);
+	
+	System.out.println("\nMatrix m3: ");
 	Matrix m3 = new Matrix(3); //3x3
-	System.out.println(m1);
+	m3.set(1,1,"bob");
+	m3.set(1,2,"lob");
+	m3.set(1,3,"mob");
+	m3.set(2,1,"hob");
+	m3.set(2,2,"cob");
+	m3.set(2,3,"zob");
+	m3.set(3,1,"pob");
+	m3.set(3,2,"tob");
+	m3.set(3,3,"nob");
+	System.out.println(m3);
+	System.out.println("Matrix post transpose...");
+	m3.transpose();
+	System.out.println(m3);
+       
     }//end main()
 
 }//end class Matrix
